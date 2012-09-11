@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120911000931) do
+ActiveRecord::Schema.define(:version => 20120911152136) do
 
   create_table "games", :force => true do |t|
     t.string   "name"
@@ -21,10 +21,11 @@ ActiveRecord::Schema.define(:version => 20120911000931) do
     t.integer  "allied_morale"
     t.integer  "inflation"
     t.integer  "contracts_available"
-    t.integer  "contracts_used"
+    t.integer  "contracts_left"
     t.boolean  "complete"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.integer  "creator"
   end
 
 end
