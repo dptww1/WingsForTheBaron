@@ -1,0 +1,59 @@
+= form_for(@game) do |f| 
+  - if @game.errors.any? 
+    #error_explanation
+      %h2
+        = pluralize(@game.errors.count, "error") 
+        prohibited this game from being saved:
+
+      %ul
+      - @game.errors.full_messages.each do |msg| 
+        %li
+          = msg 
+
+  .field
+    = f.label :name
+    %br
+    = f.text_field :name
+
+  .field
+    = f.label :turn
+    %br
+    = f.number_field :turn 
+
+  .field
+    = f.label :allied_power
+    %br
+    = f.number_field :allied_power 
+
+  .field
+    = f.label :german_morale
+    %br
+    = f.number_field :german_morale 
+
+  .field
+    = f.label :allied_morale
+    %br
+    = f.number_field :allied_morale 
+
+  .field
+    = f.label :inflation
+    %br
+    = f.number_field :inflation 
+
+  .field
+    = f.label :contracts_available
+    %br
+    = f.number_field :contracts_available 
+
+  .field
+    = f.label :contracts_used
+    %br
+    = f.number_field :contracts_used 
+
+  .field
+    = f.label :complete
+    %br
+    = f.check_box :complete 
+
+  .actions
+    = f.submit 
