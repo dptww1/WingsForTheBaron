@@ -1,18 +1,29 @@
 class Game < ActiveRecord::Base
-  attr_accessible :allied_morale, :allied_power, :complete, :contracts_available, :contracts_used, :german_morale, :inflation, :name, :turn
+  attr_accessor   :allied_morale
+  attr_accessor   :allied_power
+  attr_accessor   :complete 
+  attr_accessor   :contracts_available
+  attr_accessor   :contracts_left
+  attr_accessible :creator
+  attr_accessor   :german_morale
+  attr_accessor   :inflation
+  attr_accessible :name
+  attr_accessor   :turn
 
   validates :name, :presence => true
+  validates :creator, :presence => true
 
-  after_initialize :my_after_initialize
-
-  def my_after_initialize
+  after_initialize do |rec|
     if new_record?
-      self.allied_morale = 25
-      self.allied_power  = 4
-      self.complete      = false
-      self.german_morale = 25
-      self.inflation     = 0
-      self.turn          = 1
+      rec.allied_morale  = 25
+      rec.allied_power   = 4
+      rec.complete       = false
+      # contracts_available depends on number of players
+      rec.contracts_left = 0
+      # creator is filled in by controller
+      rec.german_morale  = 25
+      rec.inflation      = 0
+      rec.turn           = 1
     end
   end
 end

@@ -1,6 +1,6 @@
-Given /^I have games named (.+)$/ do |names|
+Given /^I have (a )?games? named (.+)$/ do |article, names|
   names.split(/\s*,\s*/).each do |name|
-    Game.create!(:name => name)
+    Game.create!(:name => name, :creator => 1)
   end
 end
 
