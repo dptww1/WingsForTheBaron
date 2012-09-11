@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @game.name %>
+</p>
+
+<p>
+  <b>Turn:</b>
+  <%= @game.turn %>
+</p>
+
+<p>
+  <b>Allied power:</b>
+  <%= @game.allied_power %>
+</p>
+
+<p>
+  <b>German morale:</b>
+  <%= @game.german_morale %>
+</p>
+
+<p>
+  <b>Allied morale:</b>
+  <%= @game.allied_morale %>
+</p>
+
+<p>
+  <b>Inflation:</b>
+  <%= @game.inflation %>
+</p>
+
+<p>
+  <b>Contracts available:</b>
+  <%= @game.contracts_available %>
+</p>
+
+<p>
+  <b>Contracts used:</b>
+  <%= @game.contracts_used %>
+</p>
+
+<p>
+  <b>Complete:</b>
+  <%= @game.complete %>
+</p>
+
+
+<%= link_to 'Edit', edit_game_path(@game) %> |
+<%= link_to 'Back', games_path %>
