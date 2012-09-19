@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  before_filter :authenticate_user!, :except => :index
+
   # GET /games
   # GET /games.json
   def index
@@ -41,6 +43,7 @@ class GamesController < ApplicationController
   # POST /games.json
   def create
     @game = Game.new(params[:game])
+    @game.update_attributes(:creator => current_user)
 
     respond_to do |format|
       if @game.save

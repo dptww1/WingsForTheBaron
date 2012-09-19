@@ -1,4 +1,6 @@
 class Game < ActiveRecord::Base
+  belongs_to :user, :foreign_key => :creator
+
   attr_accessor   :allied_morale
   attr_accessor   :allied_power
   attr_accessor   :complete 

@@ -27,3 +27,7 @@ When /^I register as "(.*)\/(.*)"$/ do |email, password|
   fill_in "Password confirmation", :with => password
   click_button "Sign up"
 end
+
+When /^I am signed in$/ do
+  step "I am signed in as \"test1@example.com/test123\""
+end
