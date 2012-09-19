@@ -1,3 +1,6 @@
+- content_for :suppress_usernav do 
+  true
+
 %h2 Sign in
 
 = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
