@@ -68,6 +68,8 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     ffi (1.1.5)
+    formtastic (2.2.1)
+      actionpack (>= 3.0)
     gherkin (2.11.2)
       json (>= 1.4.6)
     haml (3.1.7)
@@ -165,6 +167,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   devise
+  formtastic
   haml
   jquery-rails
   pg
