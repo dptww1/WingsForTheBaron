@@ -1,4 +1,4 @@
-= form_for(@game) do |f| 
+= semantic_form_for(@game) do |f| 
   - if @game.errors.any? 
     #error_explanation
       %h2
@@ -10,10 +10,14 @@
         %li
           = msg 
 
-  .field
-    = f.label :name, "Game Name"
-    %br
-    = f.text_field :name
+  = f.input :name, :label => "Game Name"
 
-  .actions
-    = f.submit 
+  = f.input :albatros, :as => :string
+  
+  = f.input :fokker, :as => :string
+  
+  = f.input :halberstadt, :as => :string
+
+  = f.input :pfalz, :as => :string
+
+  = f.submit 
