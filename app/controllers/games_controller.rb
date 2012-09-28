@@ -42,8 +42,15 @@ class GamesController < ApplicationController
   # POST /games
   # POST /games.json
   def create
-    @game = Game.new(params[:game])
+    @game = Game.new(:name => params[:game][:name])
     @game.update_attributes(:creator => current_user)
+    Game.player_names.each do |pname|
+      if params[:game][pname.downcase]
+        user = User.where("email = ?", params[:game][pname.downcase]).first()
+        # TODO: user.nil?
+        @game.games_players << GamesPlayer.new(:user => user, :side_name => pname)
+      end
+    end
 
     respond_to do |format|
       if @game.save

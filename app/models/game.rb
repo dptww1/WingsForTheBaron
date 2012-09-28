@@ -1,31 +1,59 @@
 class Game < ActiveRecord::Base
-  belongs_to :user, :foreign_key => :creator
+  belongs_to :creator, :class_name => "User", :foreign_key => "creator", :inverse_of => :created
 
-  attr_accessor   :allied_morale
-  attr_accessor   :allied_power
-  attr_accessor   :complete 
-  attr_accessor   :contracts_available
-  attr_accessor   :contracts_left
+  has_many :games_players
+  has_many :users, :through => :games_players
+
   attr_accessible :creator
-  attr_accessor   :german_morale
-  attr_accessor   :inflation
   attr_accessible :name
-  attr_accessor   :turn
 
   validates :name, :presence => true
   validates :creator, :presence => true
 
-  after_initialize do |rec|
-    if new_record?
-      rec.allied_morale  = 25
-      rec.allied_power   = 4
-      rec.complete       = false
-      # contracts_available depends on number of players
-      rec.contracts_left = 0
-      # creator is filled in by controller
-      rec.german_morale  = 25
-      rec.inflation      = 0
-      rec.turn           = 1
-    end
+  validate :at_least_two_players
+
+  after_initialize :set_defaults, :if => :new_record?
+
+  def self.player_names ; %w/Albatros Fokker Halberstadt Pfalz/; end
+
+  def albatros
+    games_players.each { |p| return p if p.side_name == "Albatros" }
+    nil
+  end
+
+  def fokker
+    games_players.each { |p| return p if p.side_name == "Fokker" }
+    nil
+  end
+
+  def halberstadt
+    games_players.each { |p| return p if p.side_name == "Halberstadt" }
+    nil
+  end
+
+  def pfalz
+    games_players.each { |p| return p if p.side_name == "Pfalz" }
+    nil
+  end
+
+  def each_player
+    games_players.each do |gp| yield gp.side_name, gp.player end
+  end
+
+  def at_least_two_players
+    errors.add(:base, "You must have at least two players") unless games_players.size >= 2
+  end
+
+  def set_defaults
+    self.allied_morale  = 25
+    self.allied_power   = 4
+    self.complete       = false
+    # contracts_available depends on number of players
+    self.contracts_left = 0
+    # creator is filled in by controller
+    self.games_players  = []
+    self.german_morale  = 25
+    self.inflation      = 0
+    self.turn           = 1
   end
 end
