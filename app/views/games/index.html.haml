@@ -17,30 +17,30 @@
     %th Edit?
     %th Destroy?
 
-- @games.each do |game|
-  %tr
-    %td
-      = game.name
-    %td
-      = game.turn
-    %td
-      = game.allied_power
-    %td
-      = game.german_morale
-    %td
-      = game.allied_morale
-    %td
-      = game.inflation
-    %td
-      = game.contracts_available
-    %td
-      = game.complete
-    %td
-      = link_to 'Show', game
-    %td
-      = link_to 'Edit', edit_game_path(game)
-    %td
-      = link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' }
+  - @games.each do |game|
+    %tr
+      %td
+        = game.name
+      %td
+        = game.turn
+      %td
+        = game.allied_power
+      %td
+        = game.german_morale
+      %td
+        = game.allied_morale
+      %td
+        = game.inflation
+      %td
+        = game.contracts_available
+      %td
+        = game.complete
+      %td
+        = link_to 'Show', game
+      %td
+        = link_to 'Edit', edit_game_path(game)
+      %td
+        = link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' }
 %br
 
 - if user_signed_in?
