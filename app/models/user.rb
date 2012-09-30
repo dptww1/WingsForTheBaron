@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_many :games_players, :inverse_of => :user
-  has_many :created, :class_name => "Games", :inverse_of => :creator
+  has_many :created, :class_name => "Game", :foreign_key => "creator", :inverse_of => :creator
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmiable,

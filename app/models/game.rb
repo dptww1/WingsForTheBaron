@@ -36,10 +36,6 @@ class Game < ActiveRecord::Base
     nil
   end
 
-  def each_player
-    games_players.each do |gp| yield gp.side_name, gp.player end
-  end
-
   def at_least_two_players
     errors.add(:base, "You must have at least two players") unless games_players.size >= 2
   end

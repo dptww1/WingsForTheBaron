@@ -7,10 +7,9 @@ h1. TODO
 * Development 
 ** Users
 *** Cucumber test file
-*** Remove Sign In link on sign in form
-** model Players (score:integer bank:integer power:integer factories:integer user_id:integer)
-** model GamePlayers (game_id, player_id, faction_name:string)
-** Game habtm Players through GamePlayers
+** Games
+*** creating a game gets doubles "Game was successfully created" messages
+*** guard against invalid side_names
 
 * Production
 ** config/environments/development.rb: config.action_mailer.default_url_options = { :host => "whatever" }

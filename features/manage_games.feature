@@ -25,3 +25,17 @@ Feature: Manage Games
     When I create a game named "Test4a" with players Albatros, Fokker, Halberstadt, Pfalz
     Then I should be on the show game page
      And I should see "Test4"
+     And I should see "Albatros"
+     And I should see "Fokker"
+     And I should see "Halberstadt"
+     And I should see "Pfalz"
+
+  Scenario: Signed-in user can create game with three players
+    Given I am signed in
+    When I create a game named "Test4a" with players Albatros, Fokker, Halberstadt
+    Then I should be on the show game page
+     And I should see "Test4"
+     And I should see "Albatros"
+     And I should see "Fokker"
+     And I should see "Halberstadt"
+     And I should not see "Pfalz"

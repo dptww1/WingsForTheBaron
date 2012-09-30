@@ -1,48 +1,45 @@
 - content_for :title do
   WftB Online: Games List
 
-%h1 Listing games
-
-%table
-  %tr
-    %th Name
-    %th Turn
-    %th Allied power
-    %th German morale
-    %th Allied morale
-    %th Inflation
-    %th Contracts available
-    %th Complete
-    %th Show?
-    %th Edit?
-    %th Destroy?
-
-  - @games.each do |game|
-    %tr
-      %td
-        = game.name
-      %td
-        = game.turn
-      %td
-        = game.allied_power
-      %td
-        = game.german_morale
-      %td
-        = game.allied_morale
-      %td
-        = game.inflation
-      %td
-        = game.contracts_available
-      %td
-        = game.complete
-      %td
-        = link_to 'Show', game
-      %td
-        = link_to 'Edit', edit_game_path(game)
-      %td
-        = link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' }
-%br
-
 - if user_signed_in?
-  = link_to 'Create New Game', new_game_path
 
+  %h1 Games I Created
+
+  - if @my_games.size > 0
+
+    %table
+      = render "summary_header"
+
+      - @my_games.each do |game|
+        = render :partial => "summary", :locals => { :game => game }
+
+  - else
+
+    None
+
+  - if user_signed_in?
+    %br
+    = link_to 'Create New Game', new_game_path
+
+
+  -#  h1 Games I'm Playing
+
+  %h1 Other Games
+
+- else
+
+  %h1 Current Games
+
+- if @other_games.size > 0
+
+  %table
+    = render "summary_header"
+
+    - @other_games.each do |game|
+      = render :partial => "summary", :locals => { :game => game }
+
+- else
+  
+  None
+
+  

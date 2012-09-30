@@ -1,0 +1,22 @@
+-# Renders a single game in summary format, such as found on the index page
+-# Local variables required: "game" (Game instance)
+
+%tr
+  %td
+    = link_to game.name, game
+  %td
+    = game.turn
+  %td
+    = game.german_morale
+  %td
+    = game.allied_morale
+  %td
+    = game.inflation
+    \%
+  %td
+    = game.contracts_available
+  %td
+    = link_to 'Edit', edit_game_path(game)
+  %td
+    = link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' }
+

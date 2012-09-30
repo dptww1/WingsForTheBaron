@@ -33,6 +33,27 @@
   <b>Complete:</b>
   = @game.complete 
 
+%table
+  %tr
+    %th Player
+    %th Score
+    %th Bank
+    %th Power
+    %th Factories
+
+  - @game.games_players.each do |gp|
+    %tr
+      %td
+        = gp.side_name
+      %td
+        = gp.score
+      %td
+        = gp.bank
+      %td
+        = gp.power
+      %td
+        = gp.factories
+
 = link_to 'Edit', edit_game_path(@game)
 |
 = link_to 'Back', games_path

@@ -4,7 +4,13 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @games = Game.all
+    @my_games = []
+    @other_games = Game.all
+
+    if current_user
+      @my_games = current_user.created
+      @other_games -= @my_games
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -45,6 +51,7 @@ class GamesController < ApplicationController
     @game = Game.new(:name => params[:game][:name])
     @game.update_attributes(:creator => current_user)
     Game.player_names.each do |pname|
+      next if params[:game][pname.downcase].empty?
       if params[:game][pname.downcase]
         user = User.where("email = ?", params[:game][pname.downcase]).first()
         # TODO: user.nil?
