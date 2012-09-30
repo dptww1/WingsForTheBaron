@@ -16,7 +16,7 @@
   %td
     = game.contracts_available
   %td
-    = link_to 'Edit', edit_game_path(game)
+    = link_to 'Edit', edit_game_path(game), title: "Edit #{game.name}"
   %td
-    = link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' }
+    = link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' }, title: "Delete #{game.name}"
 

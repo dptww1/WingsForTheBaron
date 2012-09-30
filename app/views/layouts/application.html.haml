@@ -1,37 +1,37 @@
 !!! 5
-%html
-%head
-  %title
-    - if content_for? :title
-      = content_for :title
-    - else
-      Wings for the Baron Online
-  %meta{ :charset => "utf-8" }
-  = stylesheet_link_tag    "application", :media => "all"
-  = javascript_include_tag "application"
-  = csrf_meta_tags
-%body
+%html{ :lang => "en" }
+  %head
+    %title
+      - if content_for? :title
+        = content_for :title
+      - else
+        Wings for the Baron Online
+    %meta{ :charset => "utf-8" }
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
 
-- unless content_for? :suppress_usernav
-  #userNav 
-    - if user_signed_in?
-      Signed in as 
-      = current_user.email
-      Not you?
-      = link_to "Sign out", destroy_user_session_path, :method => :delete
-    - else
-      = link_to "Sign up", new_user_registration_path
-      or
-      = link_to "Sign in", new_user_session_path
-
-#page_header
-  = link_to image_tag("logo.png", :alt => "Wings for the Baron", :id => "logo"), root_url, :title => "Page Header"
-
-- if notice
-  %p#notice
-    = notice
-- if alert
-  %p#alert
-    = alert
-
-= yield
+  %body
+    - unless content_for? :suppress_usernav
+      #userNav 
+        - if user_signed_in?
+          Signed in as 
+          = current_user.email
+          Not you?
+          = link_to "Sign out", destroy_user_session_path, :method => :delete
+        - else
+          = link_to "Sign up", new_user_registration_path
+          or
+          = link_to "Sign in", new_user_session_path
+    
+    #page_header
+      = link_to image_tag("logo.png", :alt => "Wings for the Baron", :id => "logo"), root_url, :title => "Page Header"
+    
+    - if notice
+      %p#notice
+        = notice
+    - if alert
+      %p#alert
+        = alert
+    
+    = yield
