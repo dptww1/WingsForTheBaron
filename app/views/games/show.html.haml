@@ -1,37 +1,41 @@
-%p#notice
-  = notice
+%table
+  %tr
+    %th Name
+    %td
+      = @game.name
 
-%p
-  <b>Name:</b>
-  = @game.name 
+  %tr
+    %th Turn
+    %td
+      = @game.turn
 
-%p
-  <b>Turn:</b>
-  = @game.turn 
+  %tr
+    %th Allied Power 
+    %td
+      = @game.allied_power 
 
-%p
-  <b>Allied power:</b>
-  = @game.allied_power 
+  %tr
+    %th German morale
+    %td
+      = @game.german_morale 
 
-%p
-  <b>German morale:</b>
-  = @game.german_morale 
+  %tr
+    %th Allied morale
+    %td
+      = @game.allied_morale 
 
-%p
-  <b>Allied morale:</b>
-  = @game.allied_morale 
+  %tr
+    %th Inflation
+    %td
+      = @game.inflation 
+      \%
 
-%p
-  <b>Inflation:</b>
-  = @game.inflation 
+  %tr
+    %th Contracts available
+    %td
+      = @game.contracts_available 
 
-%p
-  <b>Contracts available:</b>
-  = @game.contracts_available 
-
-%p
-  <b>Complete:</b>
-  = @game.complete 
+%br
 
 %table
   %tr
@@ -44,7 +48,7 @@
   - @game.games_players.each do |gp|
     %tr
       %td
-        = gp.side_name
+        = "#{gp.side_name} (#{gp.user.email})"
       %td
         = gp.score
       %td

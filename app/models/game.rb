@@ -16,23 +16,28 @@ class Game < ActiveRecord::Base
 
   def self.player_names ; %w/Albatros Fokker Halberstadt Pfalz/; end
 
+  def find_player_by_side_name(side_name)
+    games_players.each { |p| return p if p.side_name.upcase == side_name.upcase }
+    nil
+  end
+
   def albatros
-    games_players.each { |p| return p if p.side_name == "Albatros" }
+    games_players.each { |p| return p.user.email if p.side_name == "Albatros" }
     nil
   end
 
   def fokker
-    games_players.each { |p| return p if p.side_name == "Fokker" }
+    games_players.each { |p| return p.user.email if p.side_name == "Fokker" }
     nil
   end
 
   def halberstadt
-    games_players.each { |p| return p if p.side_name == "Halberstadt" }
+    games_players.each { |p| return p.user.email if p.side_name == "Halberstadt" }
     nil
   end
 
   def pfalz
-    games_players.each { |p| return p if p.side_name == "Pfalz" }
+    games_players.each { |p| return p.user.email if p.side_name == "Pfalz" }
     nil
   end
 

@@ -49,15 +49,9 @@ class GamesController < ApplicationController
   # POST /games.json
   def create
     @game = Game.new(:name => params[:game][:name])
+
     @game.update_attributes(:creator => current_user)
-    Game.player_names.each do |pname|
-      next if params[:game][pname.downcase].empty?
-      if params[:game][pname.downcase]
-        user = User.where("email = ?", params[:game][pname.downcase]).first()
-        # TODO: user.nil?
-        @game.games_players << GamesPlayer.new(:user => user, :side_name => pname)
-      end
-    end
+    assign_players(@game)
 
     respond_to do |format|
       if @game.save
@@ -76,7 +70,7 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
 
     respond_to do |format|
-      if @game.update_attributes(params[:game])
+      if assign_players(@game)
         format.html { redirect_to @game, notice: 'Game was successfully updated.' }
         format.json { head :no_content }
       else
@@ -96,5 +90,35 @@ class GamesController < ApplicationController
       format.html { redirect_to games_url }
       format.json { head :no_content }
     end
+  end
+
+private
+  def assign_players(game)
+    Game.player_names.each do |pname|
+
+      # If side is now unassigned....
+      if params[:game][pname.downcase].empty?
+        p = game.find_player_by_side_name(pname)
+        # ...but it used to exist, we need to delete it
+        game.games_players.delete(p) if p
+
+      else # side is now assigned
+        user = User.where("email = ?", params[:game][pname.downcase]).first()
+        # TODO: user.nil?
+
+        p = game.find_player_by_side_name(pname)
+
+        # if side wasn't already assigned for this game, just add it
+        if p.nil?
+          game.games_players << GamesPlayer.new(:user => user, :side_name => pname)
+
+        else # but if side /does/ already exist, substitute the new email address
+          p.user = user
+          p.save
+        end
+      end
+    end
+
+    true
   end
 end
