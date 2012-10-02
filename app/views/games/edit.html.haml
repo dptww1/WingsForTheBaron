@@ -5,3 +5,5 @@
 = link_to 'Show', @game
 |
 = link_to 'Back', games_path
+|
+= link_to 'Delete', @game, method: :delete, data: { confirm: 'Are you sure?' }, title: "Delete #{@game.name}"
