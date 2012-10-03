@@ -1,0 +1,20 @@
+table.gameInfo {
+  font-family: monospace;
+
+  th {
+    text-decoration: underline;
+  }
+
+  td, th {
+    padding:    3px 5px;
+    text-align: right;
+  }
+
+  td.left, th.left {
+    text-align: left;
+  }
+
+  td.center, th.center {
+    text-align: center
+  }
+}

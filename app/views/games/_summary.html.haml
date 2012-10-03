@@ -2,7 +2,7 @@
 -# Local variables required: "game" (Game instance)
 
 %tr
-  %td
+  %td.left
     = link_to game.name, game
   %td
     = game.turn
@@ -10,6 +10,8 @@
     = game.german_morale
   %td
     = game.allied_morale
+  %td
+    = game.allied_power
   %td
     = "#{game.inflation}%"
   %td

@@ -12,4 +12,11 @@
  *= require formtastic
  *= require games
  *= require layout
+ *= require tables
  */
+
+body {
+  background-color: rgb(255, 250, 236);
+  font-family: monospace;
+  color: rgb(60, 53, 17);
+}

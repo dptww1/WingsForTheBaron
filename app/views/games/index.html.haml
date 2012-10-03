@@ -5,7 +5,7 @@
 
   - if @my_games.size > 0
 
-    %table
+    %table.gameInfo
       %caption Games I Created
       = render "summary_header"
 
@@ -22,7 +22,7 @@
 
 - if @other_games.size > 0
 
-  %table
+  %table.gameInfo
     %caption
       = user_signed_in? ? "Other Games" : "Current Games"
 

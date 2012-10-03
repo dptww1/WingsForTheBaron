@@ -1,44 +1,12 @@
-%table
-  %tr
-    %th Name
-    %td
-      = @game.name
-
-  %tr
-    %th Turn
-    %td
-      = @game.turn
-
-  %tr
-    %th Allied Power 
-    %td
-      = @game.allied_power 
-
-  %tr
-    %th German morale
-    %td
-      = @game.german_morale 
-
-  %tr
-    %th Allied morale
-    %td
-      = @game.allied_morale 
-
-  %tr
-    %th Inflation
-    %td
-      = "#{@game.inflation}%"
-
-  %tr
-    %th Contracts available
-    %td
-      = @game.contracts_available 
+%table.gameInfo
+  = render "summary_header"
+  = render :partial => "summary", :locals => { :game => @game }
 
 %br
 
-%table
+%table.gameInfo
   %tr
-    %th Player
+    %th.left Player
     %th Score
     %th Bank
     %th Power
@@ -46,7 +14,7 @@
 
   - @game.games_players.each do |gp|
     %tr
-      %td
+      %td.left
         = "#{gp.side_name} (#{gp.user.email})"
       %td
         = gp.score
