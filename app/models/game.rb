@@ -3,6 +3,7 @@ class Game < ActiveRecord::Base
 
   has_many :games_players
   has_many :users, :through => :games_players
+  has_and_belongs_to_many :war_status_card_draws, :class_name => "WarStatusCard"
 
   attr_accessible :creator
   attr_accessible :name
@@ -56,5 +57,7 @@ class Game < ActiveRecord::Base
     self.german_morale  = 25
     self.inflation      = 0
     self.turn           = 1
+
+    war_status_card_draws << WarStatusCard.all
   end
 end
