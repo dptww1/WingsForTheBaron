@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120926024831) do
+ActiveRecord::Schema.define(:version => 20121008013526) do
 
   create_table "games", :force => true do |t|
     t.string   "name"
@@ -55,5 +55,17 @@ ActiveRecord::Schema.define(:version => 20120926024831) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "war_status_cards", :force => true do |t|
+    t.string  "title"
+    t.boolean "do_inflation"
+    t.integer "allied_morale_loss"
+    t.integer "german_morale_loss"
+    t.integer "new_contracts"
+    t.boolean "do_reshuffle"
+    t.boolean "upgraded_allied_ac"
+    t.boolean "new_allied_ac"
+    t.boolean "allied_technology_leap"
+  end
 
 end
