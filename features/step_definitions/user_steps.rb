@@ -29,5 +29,5 @@ When /^I register as "(.*)\/(.*)"$/ do |email, password|
 end
 
 When /^I am signed in$/ do
-  step "I am signed in as \"test1@example.com/test123\""
+  step "I am signed in as \"test0@example.com/test123\""
 end
