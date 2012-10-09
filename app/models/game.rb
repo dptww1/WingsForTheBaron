@@ -3,7 +3,7 @@ class Game < ActiveRecord::Base
 
   has_many :games_players
   has_many :users, :through => :games_players
-  has_and_belongs_to_many :war_status_card_draws, :class_name => "WarStatusCard"
+  has_and_belongs_to_many :war_status_card_draws, :class_name => "WarStatusCard", :join_table => :games_war_status_draws
 
   attr_accessible :creator
   attr_accessible :name
@@ -58,6 +58,6 @@ class Game < ActiveRecord::Base
     self.inflation      = 0
     self.turn           = 1
 
-    war_status_card_draws << WarStatusCard.all
+    self.war_status_card_draws << WarStatusCard.all
   end
 end

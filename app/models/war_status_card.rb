@@ -1,5 +1,5 @@
 class WarStatusCard < ActiveRecord::Base
-  has_and_belongs_to_many :game_draws, :class_name => "Game"
+  has_and_belongs_to_many :game_draws, :class_name => "Game", :join_table => :games_war_status_draws
 
   attr_accessible :allied_morale_loss
   attr_accessible :allied_technology_leap 
