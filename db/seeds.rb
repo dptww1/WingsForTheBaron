@@ -5,7 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-WarStatusCard.create(title:                  "All Quiet on the Western Front",
+
+WarStatusCard.delete_all
+WarStatusCard.create(card_num:               1,
+                     title:                  "All Quiet on the Western Front",
                      do_inflation:           false,
                      german_morale_loss:     1,
                      allied_morale_loss:     1,
@@ -15,7 +18,8 @@ WarStatusCard.create(title:                  "All Quiet on the Western Front",
                      new_allied_ac:          false,
                      allied_technology_leap: false)
 
-WarStatusCard.create(title:                  "German Withdrawal",
+WarStatusCard.create(card_num:               2,
+                     title:                  "German Withdrawal",
                      do_inflation:           false,
                      german_morale_loss:     1,
                      allied_morale_loss:     2,
@@ -25,7 +29,8 @@ WarStatusCard.create(title:                  "German Withdrawal",
                      new_allied_ac:          false,
                      allied_technology_leap: false)
 
-WarStatusCard.create(title:                  "Romania Overrun",
+WarStatusCard.create(card_num:               3,
+                     title:                  "Romania Overrun",
                      do_inflation:           false,
                      german_morale_loss:     1,
                      allied_morale_loss:     3,
@@ -35,7 +40,8 @@ WarStatusCard.create(title:                  "Romania Overrun",
                      new_allied_ac:          false,
                      allied_technology_leap: false)
 
-WarStatusCard.create(title:                  "Russia Collapse",
+WarStatusCard.create(card_num:               4,
+                     title:                  "Russia Collapse",
                      do_inflation:           false,
                      german_morale_loss:     1,
                      allied_morale_loss:     4,
@@ -45,7 +51,8 @@ WarStatusCard.create(title:                  "Russia Collapse",
                      new_allied_ac:          false,
                      allied_technology_leap: false)
 
-WarStatusCard.create(title:                  "Chemin des Dames",
+WarStatusCard.create(card_num:               5,
+                     title:                  "Chemin des Dames",
                      do_inflation:           false,
                      german_morale_loss:     2,
                      allied_morale_loss:     4,
@@ -55,7 +62,8 @@ WarStatusCard.create(title:                  "Chemin des Dames",
                      new_allied_ac:          false,
                      allied_technology_leap: false)
 
-WarStatusCard.create(title:                  "Bloody April",
+WarStatusCard.create(card_num:               6,
+                     title:                  "Bloody April",
                      do_inflation:           false,
                      german_morale_loss:     2,
                      allied_morale_loss:     2,
@@ -65,7 +73,8 @@ WarStatusCard.create(title:                  "Bloody April",
                      new_allied_ac:          false,
                      allied_technology_leap: false)
 
-WarStatusCard.create(title:                  "U.S. Enters the War",
+WarStatusCard.create(card_num:               7,
+                     title:                  "U.S. Enters the War",
                      do_inflation:           true,
                      german_morale_loss:     2,
                      allied_morale_loss:     1,
@@ -75,7 +84,8 @@ WarStatusCard.create(title:                  "U.S. Enters the War",
                      new_allied_ac:          false,
                      allied_technology_leap: false)
 
-WarStatusCard.create(title:                  "Jutland",
+WarStatusCard.create(card_num:               8,
+                     title:                  "Jutland",
                      do_inflation:           false,
                      german_morale_loss:     2,
                      allied_morale_loss:     3,
@@ -85,7 +95,8 @@ WarStatusCard.create(title:                  "Jutland",
                      new_allied_ac:          false,
                      allied_technology_leap: false)
 
-WarStatusCard.create(title:                  "Blockade",
+WarStatusCard.create(card_num:               9,
+                     title:                  "Blockade",
                      do_inflation:           true,
                      german_morale_loss:     3,
                      allied_morale_loss:     1,
@@ -95,7 +106,8 @@ WarStatusCard.create(title:                  "Blockade",
                      new_allied_ac:          true,
                      allied_technology_leap: false)
 
-WarStatusCard.create(title:                  "Vittorio Veneto",
+WarStatusCard.create(card_num:               10,
+                     title:                  "Vittorio Veneto",
                      do_inflation:           true,
                      german_morale_loss:     3,
                      allied_morale_loss:     2,
@@ -105,7 +117,8 @@ WarStatusCard.create(title:                  "Vittorio Veneto",
                      new_allied_ac:          true,
                      allied_technology_leap: false)
 
-WarStatusCard.create(title:                  "Kaiserschlacht",
+WarStatusCard.create(card_num:               11,
+                     title:                  "Kaiserschlacht",
                      do_inflation:           false,
                      german_morale_loss:     3,
                      allied_morale_loss:     3,
@@ -115,7 +128,8 @@ WarStatusCard.create(title:                  "Kaiserschlacht",
                      new_allied_ac:          true,
                      allied_technology_leap: false)
 
-WarStatusCard.create(title:                  "The Somme",
+WarStatusCard.create(card_num:               12,
+                     title:                  "The Somme",
                      do_inflation:           false,
                      german_morale_loss:     3,
                      allied_morale_loss:     4,
@@ -125,7 +139,8 @@ WarStatusCard.create(title:                  "The Somme",
                      new_allied_ac:          false,
                      allied_technology_leap: false)
 
-WarStatusCard.create(title:                  "Black Day of the German Army",
+WarStatusCard.create(card_num:               13,
+                     title:                  "Black Day of the German Army",
                      do_inflation:           true,
                      german_morale_loss:     4,
                      allied_morale_loss:     1,
@@ -135,7 +150,8 @@ WarStatusCard.create(title:                  "Black Day of the German Army",
                      new_allied_ac:          false,
                      allied_technology_leap: true)
 
-WarStatusCard.create(title:                  "Meggido",
+WarStatusCard.create(card_num:               14,
+                     title:                  "Meggido",
                      do_inflation:           true,
                      german_morale_loss:     4,
                      allied_morale_loss:     2,
@@ -145,7 +161,8 @@ WarStatusCard.create(title:                  "Meggido",
                      new_allied_ac:          false,
                      allied_technology_leap: true)
 
-WarStatusCard.create(title:                  "Verdun",
+WarStatusCard.create(card_num:               15,
+                     title:                  "Verdun",
                      do_inflation:           true,
                      german_morale_loss:     4,
                      allied_morale_loss:     3,
@@ -155,7 +172,8 @@ WarStatusCard.create(title:                  "Verdun",
                      new_allied_ac:          false,
                      allied_technology_leap: true)
 
-WarStatusCard.create(title:                  "War Weariness",
+WarStatusCard.create(card_num:               16,
+                     title:                  "War Weariness",
                      do_inflation:           false,
                      german_morale_loss:     4,
                      allied_morale_loss:     4,

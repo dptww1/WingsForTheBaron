@@ -3,6 +3,7 @@ class WarStatusCard < ActiveRecord::Base
 
   attr_accessible :allied_morale_loss
   attr_accessible :allied_technology_leap 
+  attr_accessible :card_num
   attr_accessible :do_inflation 
   attr_accessible :do_reshuffle 
   attr_accessible :german_morale_loss 

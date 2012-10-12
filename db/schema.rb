@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121008020248) do
+ActiveRecord::Schema.define(:version => 20121012133359) do
 
   create_table "games", :force => true do |t|
     t.string   "name"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20121008020248) do
     t.boolean "upgraded_allied_ac"
     t.boolean "new_allied_ac"
     t.boolean "allied_technology_leap"
+    t.integer "card_num"
   end
 
 end
