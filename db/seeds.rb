@@ -13,7 +13,7 @@ WarStatusCard.create(card_num:               1,
                      german_morale_loss:     1,
                      allied_morale_loss:     1,
                      new_contracts:          4,
-                     do_reshuffle:           false,
+                     do_reshuffle:           true,
                      upgraded_allied_ac:     true,
                      new_allied_ac:          false,
                      allied_technology_leap: false)
