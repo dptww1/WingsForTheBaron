@@ -5,11 +5,21 @@ Allows for online play of my Wings for the Baron board game.  Written in Ruby on
 h1. TODO
 
 * Development 
+
 ** Users
 *** Cucumber test file
+
 ** Games
-*** creating a game gets doubles "Game was successfully created" messages
-*** guard against invalid side_names
+*** creating a game gets doubled "Game was successfully created" messages
+*** handle bad user ids
+*** convert text boxes to dropdowns, with "Me" option
+*** handle bad user names
+*** handle bad side_names
+*** implement inflation
+*** implement morale penalty for lagging technology
+*** implement game termination conditions
+*** execute_war_status_card should save game state (I think)
+*** initial contracts_available should depend on number of players
 
 * Production
 ** config/environments/development.rb: config.action_mailer.default_url_options = { :host => "whatever" }
