@@ -1,6 +1,26 @@
 class GamesController < ApplicationController
   before_filter :authenticate_user!, :except => :index
 
+  # GE /games/:id/do_war_status(.:format)
+  def do_war_status
+    @game = Game.find(params[:id])
+
+    # only game owner can do war status
+    if @game.creator != current_user
+      # TODO
+    end
+    
+    card = @game.draw_war_status_card()
+    @game.execute_war_status_card(card)
+
+    respond_to do |format|
+      if @game.save
+        format.html { redirect_to @game, notice: "War Status Card #{card.card_num}: #{card.title}" }
+        # TODO json
+      end
+    end
+  end
+
   # GET /games
   # GET /games.json
   def index

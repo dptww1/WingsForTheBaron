@@ -1,7 +1,9 @@
 Wftb::Application.routes.draw do
   devise_for :users
 
-  resources :games
+  resources :games do
+    get "do_war_status", :on => :member
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

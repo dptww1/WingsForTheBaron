@@ -24,7 +24,11 @@
         = gp.power
       %td
         = gp.factories
+%br
+- if user_signed_in? && @game.creator == current_user
+  = link_to "Execute War Status Phase", do_war_status_game_path
 
-= link_to 'Edit', edit_game_path(@game)
+%br
+= link_to "Edit", edit_game_path(@game)
 |
-= link_to 'Back', games_path
+= link_to "Back", games_path

@@ -71,7 +71,9 @@ class Game < ActiveRecord::Base
 
     # TODO power bonus to morale
     # TODO game over? (including extra inflation)
-    # TODO save game state
+
+    # It's next turn!
+    self.turn += 1
   end
   
   # Parameter is for testing purposes
