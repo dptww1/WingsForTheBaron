@@ -17,8 +17,6 @@ h1. TODO
 *** handle bad side_names
 *** implement inflation
 *** implement morale penalty for lagging technology
-*** implement game termination conditions
-*** execute_war_status_card should save game state (I think)
 *** initial contracts_available should depend on number of players
 
 * Production

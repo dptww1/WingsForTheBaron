@@ -23,23 +23,39 @@ class Game < ActiveRecord::Base
   end
 
   def albatros
-    games_players.each { |p| return p.user.email if p.side_name == "Albatros" }
+    games_players.each { |p| return p if p.side_name == "Albatros" }
     nil
   end
 
   def fokker
-    games_players.each { |p| return p.user.email if p.side_name == "Fokker" }
+    games_players.each { |p| return p if p.side_name == "Fokker" }
     nil
   end
 
   def halberstadt
-    games_players.each { |p| return p.user.email if p.side_name == "Halberstadt" }
+    games_players.each { |p| return p if p.side_name == "Halberstadt" }
     nil
   end
 
   def pfalz
-    games_players.each { |p| return p.user.email if p.side_name == "Pfalz" }
+    games_players.each { |p| return p if p.side_name == "Pfalz" }
     nil
+  end
+
+  def decide_winner
+    max_score = games_players.inject(0) { |max,gp| [max, gp.bank + gp.score].max }
+    games_players.each do |gp|
+      if max_score == gp.bank + gp.score
+        gp.winner = true
+      end
+    end
+  end
+
+  def is_game_over
+    return true if self.german_morale <= 0
+    return true if self.allied_morale <= 0
+    return true if self.inflation     >= 10
+    false
   end
 
   def execute_war_status_card(card)
@@ -71,6 +87,7 @@ class Game < ActiveRecord::Base
 
     # TODO power bonus to morale
     # TODO game over? (including extra inflation)
+    self.complete = is_game_over
 
     # It's next turn!
     self.turn += 1

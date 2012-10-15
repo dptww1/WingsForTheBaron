@@ -13,5 +13,6 @@ class GamesPlayer < ActiveRecord::Base
     self.factories = 1
     self.power     = 3
     self.score     = 0
+    self.winner    = false
   end
 end
