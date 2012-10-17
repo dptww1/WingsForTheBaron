@@ -13,10 +13,10 @@ Given /^I have (a )?games? named (.+)$/ do |article, names|
   names.gsub!("\"", "").split(/\s*,\s*/).each do |name|
     g = Game.create(:name => name)
     g.creator = user2
-    g.games_players << GamesPlayer.create(:user => user1, :side_name => "albatros")
-    g.games_players << GamesPlayer.create(:user => user2, :side_name => "fokker")
-    g.games_players << GamesPlayer.create(:user => user3, :side_name => "halberstadt")
-    g.games_players << GamesPlayer.create(:user => user4, :side_name => "pfalz")
+    g.games_players << GamesPlayer.create(:user => user1, :side_name => "Albatros")
+    g.games_players << GamesPlayer.create(:user => user2, :side_name => "Fokker")
+    g.games_players << GamesPlayer.create(:user => user3, :side_name => "Halberstadt")
+    g.games_players << GamesPlayer.create(:user => user4, :side_name => "Pfalz")
     g.save!
   end
 end
@@ -34,4 +34,16 @@ When /^I create a game named "(.*)" with these players:/ do |name, table|
   click_button "Create Game"
 
   @cuke_game_id = Rails.application.routes.recognize_path(current_path)[:id]
+end
+
+When /^I update the game with these players:$/ do |table|
+  @game = Game.find(@cuke_game_id)
+
+  visit edit_game_path(@game)
+
+  table.hashes.each do |h|
+    fill_in h["side"], :with => h["name"]
+  end
+
+  click_button "Update Game"
 end

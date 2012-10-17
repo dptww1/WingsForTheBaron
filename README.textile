@@ -18,6 +18,7 @@ h1. TODO
 *** implement inflation
 *** implement morale penalty for lagging technology
 *** initial contracts_available should depend on number of players
+*** Edit screen shows existing players incorrectly
 
 * Production
 ** config/environments/development.rb: config.action_mailer.default_url_options = { :host => "whatever" }

@@ -9,14 +9,9 @@ Given /^I am not signed in$/ do
 end
 
 Given /^I am signed in as "(.*)\/(.*)"$/ do |email, password|
-  @user = User.create!({ 
-                         :email => email,
-                         :password => password,
-                         :password_confirmation => password
-                       })
   visit new_user_session_url
-  fill_in "Email", :with => @user.email
-  fill_in "Password", :with => @user.password
+  fill_in "Email", :with => email
+  fill_in "Password", :with => password
   click_button "Sign in"
 end
 
@@ -29,5 +24,5 @@ When /^I register as "(.*)\/(.*)"$/ do |email, password|
 end
 
 When /^I am signed in$/ do
-  step "I am signed in as \"test0@example.com/test123\""
+  step "I am signed in as \"test1@example.com/test1@example.com\""
 end

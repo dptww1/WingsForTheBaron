@@ -117,13 +117,13 @@ private
     Game.player_names.each do |pname|
 
       # If side is now unassigned....
-      if params[:game][pname.downcase].empty?
+      if params[:game]["#{pname.downcase}_email"].empty?
         p = game.find_player_by_side_name(pname)
         # ...but it used to exist, we need to delete it
         game.games_players.delete(p) if p
 
       else # side is now assigned
-        user = User.where("email = ?", params[:game][pname.downcase]).first()
+        user = User.where("email = ?", params[:game]["#{pname.downcase}_email"]).first()
         # TODO: user.nil?
 
         p = game.find_player_by_side_name(pname)

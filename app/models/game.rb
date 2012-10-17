@@ -42,6 +42,22 @@ class Game < ActiveRecord::Base
     nil
   end
 
+  def albatros_email
+    albatros && albatros.user.email
+  end
+
+  def fokker_email
+    fokker && fokker.user.email; 
+  end
+
+  def halberstadt_email
+    halberstadt && halberstadt.user.email
+  end
+
+  def pfalz_email
+    pfalz && pfalz.user.email; 
+  end
+
   def decide_winner
     max_score = games_players.inject(0) { |max,gp| [max, gp.bank + gp.score].max }
     games_players.each do |gp|

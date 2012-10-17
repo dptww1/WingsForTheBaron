@@ -29,7 +29,7 @@ Feature: Manage Games
     Then I should see "Create New Game"
     
   Scenario: Signed-in user can create game with four players
-    Given I am signed in
+    Given I am signed in as "test1@example.com/test1@example.com"
     When I create a game named "Test4a" with these players:
     | side        | name              |
     | Albatros    | test2@example.com |
@@ -56,3 +56,19 @@ Feature: Manage Games
      And I should see "Fokker"
      And I should not see "Halberstadt"
      And I should see "Pfalz"
+
+  Scenario: Game owner can edit players
+    Given I am signed in
+    And I create a game named "Test3" with these players:
+    | side     | name              |
+    | Albatros | test3@example.com |
+    | Fokker   | test1@example.com |
+    | Pfalz    | test2@example.com |
+    When I update the game with these players:
+    | side     | name              |
+    | Albatros | test2@example.com  |
+    | Pfalz    | test3@example.com  |
+    Then I should be on the show game page
+    And I should see "Albatros (test2@example.com)"
+    And I should see "Fokker (test1@example.com)"
+    And I should see "Pfalz (test3@example.com)"
