@@ -12,18 +12,21 @@
     %th Power
     %th Factories
 
-  - @game.games_players.each do |gp|
-    %tr
-      %td.left
-        = "#{gp.side_name} (#{gp.user.email})"
-      %td
-        = gp.score
-      %td
-        = gp.bank
-      %td
-        = gp.power
-      %td
-        = gp.factories
+  - Game.player_names.each do |side_name|
+    - p = @game.find_player_by_side_name(side_name)
+    - if p
+      %tr
+        %td.left
+          = "#{side_name} (#{p.user.email})"
+        %td
+          = p.score
+        %td
+          = p.bank
+        %td
+          = p.power
+        %td
+          = p.factories
+
 %br
 - if user_signed_in? && @game.creator == current_user
   = link_to "Execute War Status Phase", do_war_status_game_path
