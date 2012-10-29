@@ -5,6 +5,8 @@ Wftb::Application.routes.draw do
     get "do_war_status", :on => :member
   end
 
+  resources :games_players
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

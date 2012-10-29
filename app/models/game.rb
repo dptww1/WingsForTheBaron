@@ -1,6 +1,7 @@
 class Game < ActiveRecord::Base
   belongs_to :creator, :class_name => "User", :foreign_key => "creator", :inverse_of => :created
 
+  has_many :games_journals
   has_many :games_players
   has_many :users, :through => :games_players
   has_and_belongs_to_many :war_status_card_draws, :class_name => "WarStatusCard", :join_table => :games_war_status_draws
@@ -47,7 +48,7 @@ class Game < ActiveRecord::Base
   end
 
   def fokker_email
-    fokker && fokker.user.email; 
+    fokker && fokker.user.email;
   end
 
   def halberstadt_email
@@ -55,7 +56,7 @@ class Game < ActiveRecord::Base
   end
 
   def pfalz_email
-    pfalz && pfalz.user.email; 
+    pfalz && pfalz.user.email;
   end
 
   def decide_winner
@@ -76,7 +77,7 @@ class Game < ActiveRecord::Base
 
   def execute_war_status_card(card)
     if card.do_inflation
-      self.inflation += 1 
+      self.inflation += 1
       # TODO reduce player's Score
     end
 
@@ -105,10 +106,16 @@ class Game < ActiveRecord::Base
     # TODO game over? (including extra inflation)
     self.complete = is_game_over
 
+    # Archive the orders for future reference and reset them for the new turn
+    games_players.each do |gp|
+      gp.games_players_orders << GamesPlayersOrder.create(order1: gp.order1, order2: gp.order2, turn: self.turn)
+      gp.order1 = gp.order2 = "None"
+    end
+
     # It's next turn!
     self.turn += 1
   end
-  
+
   # Parameter is for testing purposes
   def draw_war_status_card(card_num=nil)
     card = card_num ? war_status_card_draws.find { |c| c.card_num == card_num } : war_status_card_draws.sample

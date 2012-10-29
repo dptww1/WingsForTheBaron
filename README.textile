@@ -1,24 +1,49 @@
 h1. WingsForTheBaron
 
-Allows for online play of my Wings for the Baron board game.  Written in Ruby on Rails.
+Allows for online play of my "Wings for the Baron":http://www.wingsforthebaron.com board game.  Written in Ruby on Rails.
 
 h1. TODO
 
 * Development 
 
 ** Users
-*** Cucumber test file
+More Cucumber tests
 
 ** Games
-*** creating a game gets doubled "Game was successfully created" messages
-*** handle bad user ids
-*** convert text boxes to dropdowns, with "Me" option
-*** handle bad user names
-*** handle bad side_names
-*** implement inflation
-*** implement morale penalty for lagging technology
-*** initial contracts_available should depend on number of players
-*** Edit screen shows existing players incorrectly
+*** Model
+Initial contracts_available should depend on number of players
+
+Implement inflation
+
+Implement morale penalty for lagging technology
+
+Use :dependent => :destroy on relations
+
+*** Create/Edit Page
+
+Should probably allow morale (etc) changes as well as email changes
+
+Convert email text boxes to dropdowns, with "Me" option
+
+Handle bad user ids
+
+Handle bad user names
+
+Handle bad side_names
+
+*** Show Page
+
+Game title shouldn't be clickable
+
+*** Index
+
+- Completed games show up in a separate list
+
+- Need a "Games I'm In" section
+
+** Logging
+
+Need a comprehensive logging facility
 
 * Production
 ** config/environments/development.rb: config.action_mailer.default_url_options = { :host => "whatever" }

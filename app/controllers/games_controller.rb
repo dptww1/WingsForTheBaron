@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   before_filter :authenticate_user!, :except => :index
 
-  # GE /games/:id/do_war_status(.:format)
+  # GET /games/:id/do_war_status(.:format)
   def do_war_status
     @game = Game.find(params[:id])
 
@@ -9,7 +9,7 @@ class GamesController < ApplicationController
     if @game.creator != current_user
       # TODO
     end
-    
+
     card = @game.draw_war_status_card()
     @game.execute_war_status_card(card)
 
@@ -130,7 +130,7 @@ private
 
         # if side wasn't already assigned for this game, just add it
         if p.nil?
-          game.games_players << GamesPlayer.new(:user => user, :side_name => pname)
+          game.games_players << GamesPlayer.new(:game => game, :user => user, :side_name => pname)
 
         else # but if side /does/ already exist, substitute the new email address
           p.user = user

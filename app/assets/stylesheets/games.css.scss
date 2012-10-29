@@ -7,3 +7,18 @@ caption {
   font: bold 32px 'Courier New';
   padding: 1em 0em;
 }
+
+form.orders_form {
+  li.select {
+    display: inline;
+
+    .label {
+      display: none;
+    }
+  }
+
+  li.action {
+    display: inline;
+    float: none;
+  }
+}

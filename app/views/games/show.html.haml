@@ -11,6 +11,7 @@
     %th Bank
     %th Power
     %th Factories
+    %th.left Orders
 
   - Game.player_names.each do |side_name|
     - p = @game.find_player_by_side_name(side_name)
@@ -26,6 +27,23 @@
           = p.power
         %td
           = p.factories
+        %td.left
+          - o = current_orders_for_user(current_user, p)
+          - if o.respond_to? :size  # it's an array
+            = semantic_form_for p, { :html => { :class => "orders_form" } } do |f|
+              = f.input :order1, :as => :select, :collection => GamesPlayersOrder.options,
+                                                 :input_html => { :multiple => false },
+                                                 :include_blank => false
+              = f.input :order2, :as => :select, :collection => GamesPlayersOrder.options,
+                                                 :input_html => { :multiple => false },
+                                                 :include_blank => false
+              = f.action :submit, :label => "Done"
+
+          - elsif o
+            Orders Entered
+
+          - else
+            No Orders Yet
 
 %br
 - if user_signed_in? && @game.creator == current_user

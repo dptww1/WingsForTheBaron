@@ -7,9 +7,9 @@ describe Game do
     user3 = User.create!(email: "rspec3@example.com", password: "rspec1@ex", password_confirmation: "rspec1@ex")
 
     @game = Game.create(name: "RSpec Game", creator: user2)
-    @game.games_players << GamesPlayer.create!(user: user1, side_name: "Albatros")
-    @game.games_players << GamesPlayer.create!(user: user2, side_name: "Fokker")
-    @game.games_players << GamesPlayer.create!(user: user3, side_name: "Pfalz")
+    @game.games_players << GamesPlayer.create!(game: @game, user: user1, side_name: "Albatros")
+    @game.games_players << GamesPlayer.create!(game: @game, user: user2, side_name: "Fokker")
+    @game.games_players << GamesPlayer.create!(game: @game, user: user3, side_name: "Pfalz")
 
     @game.save!
   end
@@ -27,6 +27,13 @@ describe Game do
     @game.war_status_card_draws.size.should == 16
   end
 
+  it "should have default orders for all players" do
+    @game.games_players.each do |gp|
+      gp.order1.should == "None"
+      gp.order2.should == "None"
+    end
+  end
+
   describe "#draw_war_status_card" do
     it "removes a card from the War Status deck" do
       num_cards = @game.war_status_card_draws.size
@@ -37,6 +44,13 @@ describe Game do
   end
 
   describe "#execute_war_status_card" do
+    it "archives the current orders" do
+      @game.games_players.each { |gp| gp.games_players_orders.size.should == 0 }
+      card = @game.draw_war_status_card
+      @game.execute_war_status_card(card)
+      @game.games_players.each { |gp| gp.games_players_orders.size.should == 1 }
+    end
+
     it "lowers the morale of both sides" do
       card = @game.draw_war_status_card
       card.upgraded_allied_ac = true
@@ -97,6 +111,14 @@ describe Game do
       @game.inflation = 9
       @game.execute_war_status_card(@game.draw_war_status_card(15))
       @game.complete.should be_true
+    end
+
+    it "adds new empty player orders for the current turn" do
+      @game.execute_war_status_card(@game.draw_war_status_card)
+      @game.games_players.each do |gp|
+        gp.order1 = "None"
+        gp.order2 = "None"
+      end
     end
   end
 
