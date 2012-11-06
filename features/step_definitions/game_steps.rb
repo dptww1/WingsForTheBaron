@@ -13,10 +13,10 @@ Given /^I have (a )?games? named (.+)$/ do |article, names|
   names.gsub!("\"", "").split(/\s*,\s*/).each do |name|
     g = Game.create(:name => name)
     g.creator = user2
-    g.games_players << GamesPlayer.create(:game => g, :user => user1, :side_name => "Albatros")
-    g.games_players << GamesPlayer.create(:game => g, :user => user2, :side_name => "Fokker")
-    g.games_players << GamesPlayer.create(:game => g, :user => user3, :side_name => "Halberstadt")
-    g.games_players << GamesPlayer.create(:game => g, :user => user4, :side_name => "Pfalz")
+    g.games_players.build(:user => user1, :side_name => "Albatros")
+    g.games_players.build(:user => user2, :side_name => "Fokker")
+    g.games_players.build(:user => user3, :side_name => "Halberstadt")
+    g.games_players.build(:user => user4, :side_name => "Pfalz")
     g.save!
   end
 end
@@ -25,7 +25,7 @@ end
 When /^I create a game named "(.*)" with these players:/ do |name, table|
   visit new_game_url
 
-  fill_in "Game Name", :with => name 
+  fill_in "Game Name", :with => name
 
   table.hashes.each do |h|
     fill_in h["side"], :with => h["name"]

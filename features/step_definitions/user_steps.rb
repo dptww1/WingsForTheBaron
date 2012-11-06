@@ -3,7 +3,7 @@ World(Rack::Test::Methods)
 
 Given /^I am not signed in$/ do
   # Can't just 'visit "user/sign_out"' because in Rails 3 + Devise 2 the sign out
-  # route uses the DELETE action instead of GET.  So use the delete method from 
+  # route uses the DELETE action instead of GET.  So use the delete method from
   # Rack::Test::Methods
   delete "/users/sign_out"
 end
@@ -13,6 +13,7 @@ Given /^I am signed in as "(.*)\/(.*)"$/ do |email, password|
   fill_in "Email", :with => email
   fill_in "Password", :with => password
   click_button "Sign in"
+  @current_user_email = email
 end
 
 When /^I register as "(.*)\/(.*)"$/ do |email, password|
@@ -21,6 +22,7 @@ When /^I register as "(.*)\/(.*)"$/ do |email, password|
   fill_in "Password", :with => password
   fill_in "Password confirmation", :with => password
   click_button "Sign up"
+  @current_user_email = email
 end
 
 When /^I am signed in$/ do

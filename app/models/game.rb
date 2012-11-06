@@ -1,7 +1,7 @@
 class Game < ActiveRecord::Base
   belongs_to :creator, :class_name => "User", :foreign_key => "creator", :inverse_of => :created
 
-  has_many :games_journals
+  has_many :journal_items
   has_many :games_players
   has_many :users, :through => :games_players
   has_and_belongs_to_many :war_status_card_draws, :class_name => "WarStatusCard", :join_table => :games_war_status_draws
@@ -9,11 +9,11 @@ class Game < ActiveRecord::Base
   attr_accessible :creator
   attr_accessible :name
 
-  validates :name, :presence => true
   validates :creator, :presence => true
-
+  validates :name, :presence => true
   validate :at_least_two_players
 
+  before_create    :create_initial_log_message
   after_initialize :set_defaults, :if => :new_record?
 
   def self.player_names ; %w/Albatros Fokker Halberstadt Pfalz/; end
@@ -144,5 +144,14 @@ class Game < ActiveRecord::Base
     self.turn                = 1
 
     self.war_status_card_draws << WarStatusCard.all
+  end
+
+  def create_initial_log_message
+    log "init", albatros_email, fokker_email, halberstadt_email, pfalz_email
+  end
+
+  def log(item_type, arg1=nil, arg2=nil, arg3=nil, arg4=nil)
+    ji = journal_items.build(item_type: item_type, turn: turn, arg1: arg1, arg2: arg2, arg3: arg3, arg4: arg4)
+    ji.save
   end
 end

@@ -6,6 +6,10 @@ class GamesPlayer < ActiveRecord::Base
 
   accepts_nested_attributes_for :games_players_orders
 
+  validates :order1, :presence => true, :inclusion => { in: GamesPlayersOrder::options }
+  validates :order2, :presence => true, :inclusion => { in: GamesPlayersOrder::options }
+  validates :user,   :presence => true
+
   attr_accessible :game, :user
   attr_accessible :game_id, :user_id
   attr_accessible :side_name

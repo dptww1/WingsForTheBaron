@@ -130,7 +130,7 @@ private
 
         # if side wasn't already assigned for this game, just add it
         if p.nil?
-          game.games_players << GamesPlayer.new(:game => game, :user => user, :side_name => pname)
+          game.games_players.build(:user => user, :side_name => pname)
 
         else # but if side /does/ already exist, substitute the new email address
           p.user = user

@@ -6,10 +6,12 @@ describe Game do
     user2 = User.create!(email: "rspec2@example.com", password: "rspec1@ex", password_confirmation: "rspec1@ex")
     user3 = User.create!(email: "rspec3@example.com", password: "rspec1@ex", password_confirmation: "rspec1@ex")
 
-    @game = Game.create(name: "RSpec Game", creator: user2)
-    @game.games_players << GamesPlayer.create!(game: @game, user: user1, side_name: "Albatros")
-    @game.games_players << GamesPlayer.create!(game: @game, user: user2, side_name: "Fokker")
-    @game.games_players << GamesPlayer.create!(game: @game, user: user3, side_name: "Pfalz")
+    @game = Game.new(name: "RSpec Game", creator: user2)
+
+    @game.games_players.build(user: user1, side_name: "Albatros")
+    @game.games_players.build(user: user2, side_name: "Fokker")
+    # no Halberstadt
+    @game.games_players.build(user: user3, side_name: "Pfalz")
 
     @game.save!
   end
@@ -22,6 +24,16 @@ describe Game do
     @game.inflation.should      == 0
     @game.turn.should           == 1
     end
+
+  it "should have a single 'game initialized' journal item" do
+    @game.journal_items.size.should         == 1
+    @game.journal_items[0].should           be_valid
+    @game.journal_items[0].item_type.should == "init"
+    @game.journal_items[0].arg1.should      == "rspec1@example.com"
+    @game.journal_items[0].arg2.should      == "rspec2@example.com"
+    @game.journal_items[0].arg3.should      be_nil
+    @game.journal_items[0].arg4.should      == "rspec3@example.com"
+  end
 
   it "should have 16 war status cards in the draw pile" do
     @game.war_status_card_draws.size.should == 16
