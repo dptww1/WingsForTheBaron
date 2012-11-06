@@ -1,9 +1,9 @@
 Feature: Manage Games
-  In order to play games 
+  In order to play games
   As a user
   I want to view, create and delete games
 
-  Background: We need pool of potential opponents, already signed up for the website
+  Background: We need a pool of potential opponents, already signed up for the website
     Given these users:
     | name              |
     | test1@example.com |
@@ -27,7 +27,7 @@ Feature: Manage Games
     Given I am signed in
     When I go to the list of games
     Then I should see "Create New Game"
-    
+
   Scenario: Signed-in user can create game with four players
     Given I am signed in as "test1@example.com/test1@example.com"
     When I create a game named "Test4a" with these players:
