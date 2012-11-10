@@ -11,6 +11,8 @@ Feature: Orders
     | test3@example.com |
     | test4@example.com |
 
+  Scenario: Games list should show notification when the
+
   Scenario: Participant can enter orders
     Given I am signed in as "test1@example.com/test1@example.com"
     And I create a game named "Orders1" with these players:
