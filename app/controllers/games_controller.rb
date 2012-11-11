@@ -24,12 +24,15 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @my_games = []
-    @other_games = Game.all
+    @my_created_games       = []
+    @my_participating_games = []
+    @other_games            = Game.all
 
     if current_user
-      @my_games = current_user.created
-      @other_games -= @my_games
+      @my_created_games = current_user.created
+      @my_participating_games = Game.participating(current_user) - @my_created_games
+      @other_games -= @my_created_games
+      @other_games -= @my_participating_games
     end
 
     respond_to do |format|

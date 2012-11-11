@@ -3,6 +3,9 @@
 
 %tr
   %td.left
+    = game.action_required?(current_user) ? "!" : ""
+
+  %td.left
     = link_to game.name, game
   %td
     = game.turn

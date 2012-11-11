@@ -16,6 +16,9 @@ class Game < ActiveRecord::Base
   before_create    :create_initial_log_message
   after_initialize :set_defaults, :if => :new_record?
 
+  # Games that user is a participant in, whether or not (s)he owns the game
+  scope :participating, lambda { |user| joins(:games_players).where("games_players.user_id = ?", user.id) }
+
   def self.player_names ; %w/Albatros Fokker Halberstadt Pfalz/; end
 
   def find_player_by_side_name(side_name)
@@ -104,6 +107,7 @@ class Game < ActiveRecord::Base
 
     # TODO power bonus to morale
     # TODO game over? (including extra inflation)
+    # TODO mark winner
     self.complete = is_game_over
 
     # Archive the orders for future reference and reset them for the new turn
@@ -113,7 +117,7 @@ class Game < ActiveRecord::Base
     end
 
     # It's next turn!
-    self.turn += 1
+    self.turn += 1 unless self.complete
   end
 
   # Parameter is for testing purposes
@@ -121,6 +125,16 @@ class Game < ActiveRecord::Base
     card = card_num ? war_status_card_draws.find { |c| c.card_num == card_num } : war_status_card_draws.sample
     war_status_card_draws.delete card
     card
+  end
+
+  def action_required?(user)
+    case self.current_phase
+    when "orders"
+      games_players.detect { |gp| gp.user == user && !gp.has_current_orders? }
+
+    else
+      false
+    end
   end
 
   def max_player_power
@@ -138,6 +152,7 @@ class Game < ActiveRecord::Base
     self.contracts_available = 4 # TODO: should depend on number of players
     self.contracts_left      = 0
     # creator is filled in by controller
+    self.current_phase       = "orders"
     self.games_players       = []
     self.german_morale       = 25
     self.inflation           = 0

@@ -23,6 +23,7 @@ describe Game do
     @game.german_morale.should  == 25
     @game.inflation.should      == 0
     @game.turn.should           == 1
+    @game.current_phase.should  == "orders"
     end
 
   it "should have a single 'game initialized' journal item" do

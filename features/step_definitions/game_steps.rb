@@ -21,7 +21,7 @@ Given /^I have (a )?games? named (.+)$/ do |article, names|
   end
 end
 
-# Followed by table with columnes "side" (Albatros|Fokker|Halberstadt|Pfalz) and "name" (email)
+# Followed by table with columns "side" (Albatros|Fokker|Halberstadt|Pfalz) and "name" (email)
 When /^I create a game named "(.*)" with these players:/ do |name, table|
   visit new_game_url
 

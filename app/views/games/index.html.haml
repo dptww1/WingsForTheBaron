@@ -3,14 +3,14 @@
 
 - if user_signed_in?
 
-  - if @my_games.size > 0
+  - if @my_created_games.size > 0
 
     %table.gameInfo
-      %caption Games I Created
+      %caption Games I'm Running
       = render "summary_header"
 
-      - @my_games.each do |game|
-        = render :partial => "summary", :locals => { :game => game }
+      - @my_created_games.each do |game|
+        = render :partial => "summary", :locals => { :game => game, :current_user => current_user }
 
   - else
 
@@ -20,19 +20,28 @@
     %br
     = link_to 'Create New Game', new_game_path
 
-- if @other_games.size > 0
+  - if @my_participating_games.size > 0
 
-  %table.gameInfo
-    %caption
-      = user_signed_in? ? "Other Games" : "Current Games"
+    %table.gameInfo
+      %caption Games I'm Playing
+      = render "summary_header"
+
+      - @my_participating_games.each do |game|
+        = render :partial => "summary", :locals => { :game => game, :current_user => current_user }
+
+%table.gameInfo
+  %caption
+    = user_signed_in? ? "Other Games" : "Current Games"
+
+  - if @other_games.size > 0
 
     = render "summary_header"
 
     - @other_games.each do |game|
       = render :partial => "summary", :locals => { :game => game }
 
-- else
-  
-  None
+  - else
 
-  
+    None
+
+

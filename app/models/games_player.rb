@@ -17,6 +17,10 @@ class GamesPlayer < ActiveRecord::Base
 
   after_initialize :set_defaults, :if => :new_record?
 
+  def has_current_orders?
+    self.order1 != "None" && self.order2 != "None"
+  end
+
   def set_defaults
     self.bank      = 0
     self.factories = 1
