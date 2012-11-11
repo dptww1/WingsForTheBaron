@@ -4,7 +4,7 @@ Allows for online play of my "Wings for the Baron":http://www.wingsforthebaron.c
 
 h1. TODO
 
-* Development 
+* Development
 
 ** Users
 More Cucumber tests
@@ -37,13 +37,7 @@ Game title shouldn't be clickable
 
 *** Index
 
-- Completed games show up in a separate list
-
-- Need a "Games I'm In" section
-
-** Logging
-
-Need a comprehensive logging facility
+- Completed games show up in a separate list (with winner)
 
 * Production
 ** config/environments/development.rb: config.action_mailer.default_url_options = { :host => "whatever" }
