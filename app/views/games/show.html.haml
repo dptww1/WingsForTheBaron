@@ -17,17 +17,22 @@
     - p = @game.find_player_by_side_name(side_name)
     - if p
       %tr
-        %td.left
+        %td.left{ id: (side_name + "_email") }
           = "#{side_name} (#{p.user.email})"
-        %td
+
+        %td{ id: (side_name + "_score") }
           = p.score
-        %td
+
+        %td{ id: (side_name + "_bank") }
           = p.bank
-        %td
+
+        %td{ id: (side_name + "_power") }
           = p.power
-        %td
+
+        %td{ id: (side_name + "_factories") }
           = p.factories
-        %td.left
+
+        %td.left{ id: (side_name + "_orders") }
           - o = current_orders_for_user(current_user, p)
           - if o.respond_to? :size  # it's an array
             = semantic_form_for p, { :html => { :class => "orders_form" } } do |f|
