@@ -78,6 +78,12 @@ class Game < ActiveRecord::Base
     false
   end
 
+  def check_all_orders_in!
+    unless games_players.find { |gp| !gp.has_current_orders? }
+      self.current_phase = "implement"
+    end
+  end
+
   def execute_war_status_card(card)
     if card.do_inflation
       self.inflation += 1

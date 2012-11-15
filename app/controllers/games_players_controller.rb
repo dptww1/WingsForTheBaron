@@ -12,6 +12,8 @@ class GamesPlayersController < ApplicationController
 
         orders_logger.compare_state @games_player
 
+        @games_player.game.check_all_orders_in!
+
         format.html { redirect_to @games_player.game, notice: "Orders in game '#{@games_player.game.name}' updated."}
         format.json { head :no_content }  # TODO this can't be right
 

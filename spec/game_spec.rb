@@ -135,6 +135,28 @@ describe Game do
     end
   end
 
+  describe "#check_all_orders_in" do
+    it "doesn't update the current_phase when no players have entered orders" do
+      @game.check_all_orders_in!
+      @game.current_phase.should == "orders"
+    end
+
+    it "doesn't update the current_phase when some players have entered orders" do
+      @game.albatros.update_attributes!(order1: "Build", order2: "Build")
+      @game.pfalz.update_attributes!(order1: "Research", order2: "Research")
+      @game.check_all_orders_in!
+      @game.current_phase.should == "orders"
+    end
+
+    it "does update the current_phase when all players have entered orders" do
+      @game.albatros.update_attributes!(order1: "Build", order2: "Build")
+      @game.fokker.update_attributes!(order1: "Spy", order2: "Spy")
+      @game.pfalz.update_attributes!(order1: "Research", order2: "Research")
+      @game.check_all_orders_in!
+      @game.current_phase.should == "implement"
+    end
+  end
+
   describe "#decide_winner" do
     it "marks player with highest Bank + Score as winner" do
       @game.games_players.each { |gp| gp.winner.should be_false }
