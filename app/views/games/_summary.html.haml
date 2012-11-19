@@ -7,16 +7,16 @@
 
   %td.left
     = link_to game.name, game
-  %td
+  %td{ id: "turn" }
     = game.turn
-  %td
+  %td{ id: "german_morale" }
     = game.german_morale
-  %td
+  %td{ id: "allied_morale" }
     = game.allied_morale
-  %td
+  %td{ id: "allied_power" }
     = game.allied_power
-  %td
+  %td{ id: "inflation" }
     = "#{game.inflation * 10}%"
-  %td
+  %td{ id: "contracts_available" }
     = game.contracts_available
 

@@ -3,6 +3,7 @@ class GamesController < ApplicationController
 
   # GET /games/:id/do_war_status(.:format)
   def do_war_status
+    @now = DateTime.now
     @game = Game.find(params[:id])
 
     # only game owner can do war status
@@ -16,7 +17,7 @@ class GamesController < ApplicationController
     respond_to do |format|
       if @game.save
         format.html { redirect_to @game, notice: "War Status Card #{card.card_num}: #{card.title}" }
-        # TODO json
+        format.json { render json: @game.new_journal_items(@now) }
       end
     end
   end

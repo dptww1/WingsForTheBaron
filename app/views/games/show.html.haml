@@ -51,10 +51,12 @@
             No Orders Yet
 
 %br
+
 - if user_signed_in? && @game.creator == current_user
-  = link_to "Execute War Status Phase", do_war_status_game_path
+  = link_to "Execute War Status Phase", do_war_status_game_path, :remote => true, "data-type" => :json, :id => "execute_war_status_phase"
 
 %br
+
 = link_to "Edit", edit_game_path(@game)
 |
 = link_to "Back", games_path

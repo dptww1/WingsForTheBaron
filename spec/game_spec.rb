@@ -14,6 +14,7 @@ describe Game do
     @game.games_players.build(user: user3, side_name: "Pfalz")
 
     @game.save!
+    @initial_timestamp = DateTime.now
   end
 
   it "has initialized attributes" do
@@ -65,14 +66,19 @@ describe Game do
     end
 
     it "lowers the morale of both sides" do
+      Kernel.sleep(1)  # give "now" time to be past game save time
+      now = DateTime.now
       card = @game.draw_war_status_card
-      card.upgraded_allied_ac = true
-      card.new_allied_ac = true
-      card.allied_technology_leap = true
+      # make sure all the flags are turned off to ensure that only moral emessages are added to the log
+      card.upgraded_allied_ac = false
+      card.new_allied_ac = false
+      card.allied_technology_leap = false
+      card.do_inflation = false
       @game.execute_war_status_card(card)
 
       @game.allied_morale.should be < 25
       @game.german_morale.should be < 25
+      @game.new_journal_items(now).size.should == 3
     end
 
     it "adds inflation when required" do
@@ -132,6 +138,13 @@ describe Game do
         gp.order1 = "None"
         gp.order2 = "None"
       end
+    end
+  end
+
+  describe "#new_journal_items" do
+    it "finds the 'init' item for a new game" do
+      @game.new_journal_items(@initial_timestamp).size.should == 1
+      @game.new_journal_items(@initial_timestamp)[0].item_type.should == "init"
     end
   end
 

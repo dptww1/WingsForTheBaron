@@ -14,7 +14,7 @@ class Game < ActiveRecord::Base
   validate :at_least_two_players
 
   before_create    :create_initial_log_message
-  after_initialize :set_defaults, :if => :new_record?
+  after_initialize :set_defaults
 
   # Games that user is a participant in, whether or not (s)he owns the game
   scope :participating, lambda { |user| joins(:games_players).where("games_players.user_id = ?", user.id) }
@@ -84,15 +84,24 @@ class Game < ActiveRecord::Base
     end
   end
 
+  # Journal items created since this instance in memory was created (whether new or from the db)
+  def new_journal_items(timestamp)
+    journal_items.where("created_at >= ?", timestamp).order("id ASC")
+  end
+
   def execute_war_status_card(card)
+    log("war_status", card.card_num)
+
     if card.do_inflation
       self.inflation += 1
       # TODO reduce player's Score
     end
 
     self.german_morale = [self.german_morale - card.german_morale_loss, 0].max
+    log("german_morale", card.german_morale_loss, self.german_morale)
 
     self.allied_morale = [self.allied_morale - card.allied_morale_loss, 0].max
+    log("allied_morale", card.allied_morale_loss, self.allied_morale)
 
     self.contracts_available += [card.new_contracts - self.contracts_left, 0].max
 
@@ -152,19 +161,21 @@ class Game < ActiveRecord::Base
   end
 
   def set_defaults
-    self.allied_morale       = 25
-    self.allied_power        = 4
-    self.complete            = false
-    self.contracts_available = 4 # TODO: should depend on number of players
-    self.contracts_left      = 0
-    # creator is filled in by controller
-    self.current_phase       = "orders"
-    self.games_players       = []
-    self.german_morale       = 25
-    self.inflation           = 0
-    self.turn                = 1
+    if new_record?
+      self.allied_morale       = 25
+      self.allied_power        = 4
+      self.complete            = false
+      self.contracts_available = 4 # TODO: should depend on number of players
+      self.contracts_left      = 0
+      # creator is filled in by controller
+      self.current_phase       = "orders"
+      self.games_players       = []
+      self.german_morale       = 25
+      self.inflation           = 0
+      self.turn                = 1
 
-    self.war_status_card_draws << WarStatusCard.all
+      self.war_status_card_draws << WarStatusCard.all
+    end
   end
 
   def create_initial_log_message
