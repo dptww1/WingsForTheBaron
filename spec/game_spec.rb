@@ -78,7 +78,7 @@ describe Game do
 
       @game.allied_morale.should be < 25
       @game.german_morale.should be < 25
-      @game.new_journal_items(now).size.should == 3
+      @game.new_journal_items(now).size.should >= 3
     end
 
     it "adds inflation when required" do

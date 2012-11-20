@@ -90,34 +90,49 @@ class Game < ActiveRecord::Base
   end
 
   def execute_war_status_card(card)
-    log("war_status", card.card_num)
+    log "war_status", card.card_num, card.title
 
     if card.do_inflation
       self.inflation += 1
+      log "inflation", self.inflation
       # TODO reduce player's Score
     end
 
     self.german_morale = [self.german_morale - card.german_morale_loss, 0].max
-    log("german_morale", card.german_morale_loss, self.german_morale)
+    log "german_morale", card.german_morale_loss, self.german_morale
 
     self.allied_morale = [self.allied_morale - card.allied_morale_loss, 0].max
-    log("allied_morale", card.allied_morale_loss, self.allied_morale)
+    log "allied_morale", card.allied_morale_loss, self.allied_morale
 
     self.contracts_available += [card.new_contracts - self.contracts_left, 0].max
+    log "new_contracts", self.contracts_available, card.new_contracts, self.contracts_left
 
     if card.do_reshuffle
       war_status_card_draws.clear
       war_status_card_draws << WarStatusCard.all
+      log "reshuffle"
     end
 
-    if card.upgraded_allied_ac && allied_power < max_player_power
-      self.allied_power = allied_power + (1..6).to_a.sample
+    if card.upgraded_allied_ac
+      if self.allied_power < max_player_power
+        d6 = (1..6).to_a.sample
+        old_allied_power = self.allied_power
+        self.allied_power += d6
+        log "allied_upgrade", self.allied_power, old_allied_power, max_player_power, d6
+      else
+        log "allied_no_upgrade", self.allied_power, max_player_power
+      end
 
     elsif card.new_allied_ac
-      self.allied_power = self.allied_power + (1..6).to_a.sample
+      d6 = (1..6).to_a.sample
+      self.allied_power = self.allied_power + d6
+      log "allied_new_ac", self.allied_power, d6
 
     elsif card.allied_technology_leap
+      d6 = (1..6).to_a.sample
+      old_allied_power = self.allied_power
       self.allied_power = [self.allied_power, max_player_power].max + (1..6).to_a.sample
+      log "allied_leap", self.allied_power, old_allied_power, max_player_power, d6
     end
 
     # TODO power bonus to morale
@@ -132,7 +147,10 @@ class Game < ActiveRecord::Base
     end
 
     # It's next turn!
-    self.turn += 1 unless self.complete
+    unless self.complete
+      self.turn += 1
+      log "new_turn", self.turn
+    end
   end
 
   # Parameter is for testing purposes
