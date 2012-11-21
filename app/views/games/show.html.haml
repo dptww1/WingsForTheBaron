@@ -60,3 +60,13 @@
 = link_to "Edit", edit_game_path(@game)
 |
 = link_to "Back", games_path
+
+%h3 Game Log
+
+%table#journal_items
+  - @game.journal_items.order("created_at DESC").each do |m|
+    %tr
+      %td
+        = m.created_at
+      %td
+        = m.event_text

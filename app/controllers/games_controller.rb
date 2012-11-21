@@ -17,7 +17,7 @@ class GamesController < ApplicationController
     respond_to do |format|
       if @game.save
         format.html { redirect_to @game, notice: "War Status Card #{card.card_num}: #{card.title}" }
-        format.json { render json: @game.new_journal_items(@now) }
+        format.json { render json: @game.new_journal_items(@now).to_json(:methods => :event_text) }
       end
     end
   end
